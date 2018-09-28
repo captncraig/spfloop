@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	fmt.Println("STARTING!!!!")
 	go func() {
 		log.Fatal(dns.ListenAndServe(":8053", "udp", dns.HandlerFunc(handle)))
 	}()
@@ -30,6 +31,7 @@ qs:
 			}
 			m.Answer = append(m.Answer, rr)
 		case dns.TypeTXT:
+			log.Println(q.Name, w.RemoteAddr())
 			name := strings.SplitN(q.Name, ".", 2)
 			if len(name) != 2 {
 				m.Rcode = dns.RcodeBadName
